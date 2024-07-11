@@ -6,14 +6,13 @@ def generate_bot_responses(message, session):
 
     current_question_index = session.get("current_question_index")
     if current_question_index is None:
-        # Initialize the quiz session
         session["current_question_index"] = 0
         session["answers"] = {}
         session.save()
         bot_responses.append(BOT_WELCOME_MESSAGE)
         next_question, options = get_next_question(0)
         bot_responses.append(next_question)
-        bot_responses.append("\n".join(options))  # Include options in the response
+        bot_responses.append("\n".join(options))  
     else:
         success, error = record_current_answer(message, current_question_index, session)
 
@@ -26,7 +25,7 @@ def generate_bot_responses(message, session):
 
         if next_question:
             bot_responses.append(next_question)
-            bot_responses.append("\n".join(options))  # Include options in the response
+            bot_responses.append("\n".join(options))  
         else:
             final_response = generate_final_response(session)
             bot_responses.append(final_response)
@@ -58,7 +57,7 @@ def record_current_answer(answer, current_question_index, session):
         'is_correct': is_correct
     }
     session.save()
-    return True, ""  # Success, no error message needed when successful
+    return True, ""  
 
 
 def get_next_question(current_question_index):
